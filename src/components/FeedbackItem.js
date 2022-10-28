@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import Card from "./shared/Card";
 import propsTypes from "prop-types";
+import Button from "./shared/Button";
 
 function FeedbackItem({ text, rating, id, deleteItem }) {
   const handleDelete = (id) => {
@@ -18,7 +19,7 @@ function FeedbackItem({ text, rating, id, deleteItem }) {
         <button
           onClick={() => handleDelete(id)}
           className="btn"
-          style={{ backgroundColor: "#ff6a95" }}
+          style={{ color: "purple" }}
         >
           Delete
         </button>
