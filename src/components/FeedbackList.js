@@ -1,9 +1,11 @@
-import { motion, AnimatePresence } from "framer-motion";
-import React, { useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import FeedbackItem from "./FeedbackItem";
-import propTypes from "prop-types";
+import FeedbackContext from "./context/FeedbackContext";
 
-function FeedbackList({ feedback, deleteFeedback }) {
+function FeedbackList() {
+  const { feedback, deleteFeedback, reverse, editFeedback } =
+    useContext(FeedbackContext);
+
   if (!feedback || feedback.length === 0) {
     return <p>no feedback yet</p>;
   }
@@ -37,14 +39,13 @@ function FeedbackList({ feedback, deleteFeedback }) {
   return (
     <div>
       {feedback.map((item) => {
-        const { id, rating, text } = item;
         return (
           <FeedbackItem
-            rating={rating}
-            text={text}
-            key={id}
-            id={id}
+            item={item}
+            key={item.id}
             deleteItem={deleteFeedback}
+            reverse={reverse}
+            editFeedback={editFeedback}
           />
         );
       })}
@@ -52,13 +53,4 @@ function FeedbackList({ feedback, deleteFeedback }) {
   );
 }
 
-FeedbackList.propTypes = {
-  feedback: propTypes.arrayOf(
-    propTypes.shape({
-      id: propTypes.number.isRequired,
-      text: propTypes.string.isRequired,
-      rating: propTypes.number.isRequired,
-    })
-  ),
-};
 export default FeedbackList;
